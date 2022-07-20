@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react"
+import Header from "./components/header/Header"
+import HeroSection from "./components/hero-section/HeroSection"
+import Sites from "./components/sites/Sites"
+import { Box, createTheme, ThemeProvider } from "@mui/material"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+	const [mode, setMode] = useState("light")
+
+	const darkTheme = createTheme({
+		palette: {
+			mode: mode,
+		},
+	})
+	return (
+		<>
+			<ThemeProvider theme={darkTheme}>
+				<Box bgcolor={"background.default"} color={"text.primary"}>
+					<Header setMode={setMode} mode={mode} />
+					<Box mt={4} px={{ xs: 2, md: 20 }}>
+						<HeroSection setMode={setMode} mode={mode} />
+					</Box>
+					<Box mt={2} px={{ xs: 2, md: 20 }}>
+						<Sites />
+					</Box>
+				</Box>
+			</ThemeProvider>
+		</>
+	)
 }
-
-export default App;
+export default App
